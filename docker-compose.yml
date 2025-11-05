@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build:
@@ -7,15 +5,18 @@ services:
       dockerfile: Dockerfile
     container_name: my-kottster-container
     ports:
-      - "5480:5480"
+      - "${PORT}:5480"
       - "5481:5481"
     volumes:
       - .:/app
       - /app/node_modules
+    env_file:
+      - .env
     environment:
       - PORT=5480                 # App server port
       - DEV_API_SERVER_PORT=5481  # Development API server port
       - VITE_DOCKER_MODE=true
     tty: true
     stdin_open: true
-    command: tail -f /dev/null
+    # command: tail -f /dev/null
+    command: npm run start;

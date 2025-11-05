@@ -22,7 +22,15 @@ COPY scripts/dev.sh /dev.sh
 COPY scripts/prod.sh /prod.sh
 RUN chmod +x /dev.sh /prod.sh
 
-ENTRYPOINT ["/sbin/tini", "--"]
+# Copy source files needed for build
+COPY app/ ./app/
+COPY vite.config.js ./
+COPY kottster-app.json ./
 
-# This is a dummy command to keep the container running
-CMD ["tail", "-f", "/dev/null"]
+RUN npm run build
+
+# ENTRYPOINT ["/sbin/tini", "--"]
+
+
+# CMD ["tail", "-f", "/dev/null"]
+CMD ["npm", "run", "start"]

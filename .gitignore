@@ -3,3 +3,9 @@ nbuild
 npm-debug.log
 .DS_Store
 .cache
+
+# Database files
+*.db
+
+# Environment file
+.env
